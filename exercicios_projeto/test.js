@@ -1,13 +1,15 @@
 const { Clients, Gold, Premium, Standard } = require('./Client');
 const { BankAccount } = require('./Account');
 
-
-const doria = new Clients("Dória", 42354, "dooh@gmail.com", 119876564, 10000);
-const phy = new Clients("Aileen", 647563, "aileen.com", 119567384, 12000);
-
+const pedrin = new Premium("Pedro", 78657, "pedrin@outlook.com", 1195648392, 20000);
+const doria = new Gold("Dória", 42354, "dooh@gmail.com", 119876564, 15000);
+const phy = new Gold("Aileen", 647563, "aileen@yahoo.com", 119567384, 12000);
+const keiko = new Standard("Letícia", 87645, "keikoo@hotmail.com", 1196765432, 4990);
 
 const doriaAccount = new BankAccount(doria, '12345', '6789');
 const phyAccount = new BankAccount(phy, '23455', '7685');
+const pedrinAccount = new BankAccount(pedrin, '34567', '9876');
+const keikoAccount = new BankAccount(keiko, '47658', '5687');
 
 doriaAccount.createdPix('cpf');
 doriaAccount.createdPix('telefone');
@@ -21,10 +23,18 @@ phyAccount.createdPix('telefone');
 phyAccount.createdPix('chave aleatória');
 
 console.log(doriaAccount);
-console.log(phyAccount);
+console.log(keikoAccount);
 
-doriaAccount.transferPix(500, 647563);
+doriaAccount.transferPix(300, 647563);
 
-console.log(doriaAccount.balance);
-console.log(phyAccount.balance);
+phyAccount.transferTo(100, pedrinAccount)
+
+phyAccount.creditAmount(7000);
+
+phyAccount.transferTo(6000, pedrinAccount)
+
+pedrinAccount.cashWithdrawal(30);
+
+
+
 

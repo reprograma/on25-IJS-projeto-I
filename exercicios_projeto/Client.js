@@ -24,32 +24,37 @@ class Clients {
 }
 
 class Standard extends Clients {
-    // monthlyIncomeMax = 4999.99;
-    transferLimit = 1000;
-    type = 'standard';
-
     constructor(name, cpf, email, telefone, monthlyIncome) {
-        super(name, cpf, email, telefone, monthlyIncome);
+        if (monthlyIncome <= 4999.99) {
+            super(name, cpf, email, telefone, monthlyIncome);
+            this.transferLimit = 1000;
+            this.type = 'standard';
+        } else {
+            throw new Error('Não foi possível criar a conta Standard');
+        }
     }
 }
 
 class Gold extends Clients {
-    //monthlyIncomeMin = 5000;
-    //monthlyIncomeMax = 17999.99;
-    transferLimit = 5000;
-    type = 'gold';
-
     constructor(name, cpf, email, telefone, monthlyIncome) {
-        super(name, cpf, email, telefone, monthlyIncome);
+        if (monthlyIncome >= 5000 && monthlyIncome <= 17999.99) {
+            super(name, cpf, email, telefone, monthlyIncome);
+            this.transferLimit = 5000;
+            this.type = 'gold';
+        } else {
+            throw new Error('Não foi possível criar a conta Gold');
+        }
     }
 }
 
 class Premium extends Clients {
-    // monthlyIncomeMin = 18000;
-    type = 'premium';
-
     constructor(name, cpf, email, telefone, monthlyIncome) {
-        super(name, cpf, email, telefone, monthlyIncome);
+        if (monthlyIncome >= 18000) {
+            super(name, cpf, email, telefone, monthlyIncome);
+            this.type = 'premium';
+        } else {
+            throw new Error('Não foi possível criar a conta Premium');
+        }
     }
 }
 
