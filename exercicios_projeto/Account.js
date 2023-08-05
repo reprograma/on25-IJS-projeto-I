@@ -88,7 +88,19 @@ class BankAccount {
         }
     }
 
-    pix(amount, chave) {
+    transferPix(amount, chave) {
+        if (amount <= this.#balance) {
+            const targetAccount = BankAccount.all.find(account => account.pixKeys.cpf === chave);
+            if (targetAccount) {
+                this.#balance -= amount;
+                targetAccount.#balance += amount;
+                console.log(`Pix realizado com sucesso no valor de R$${amount},00, para ${targetAccount.client.name}.`);
+            } else {
+                console.log(`Chave PIX inválida`);
+            }
+        } else {
+            console.log(`Você não possui saldo o suficiente, seu saldo atual é R$${this.#balance},00`);
+        }
     }
 }
 
