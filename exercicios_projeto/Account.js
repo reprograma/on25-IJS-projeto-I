@@ -1,4 +1,4 @@
-const { Clients, Gold, Premium, Standard } = require('./Client');
+const { Clients } = require('./Client');
 
 class BankAccount {
 
@@ -35,12 +35,7 @@ class BankAccount {
 
     creditAmount(amount) {
         this.#balance += amount;
-        console.log(`O novo saldo da conta é: R$ ${this.#balance},00`);
-    }
-
-    debitAmount(amount) {
-        this.#balance -= amount;
-        console.log(`O novo saldo da conta é: R$ ${this.#balance},00`);
+        console.log(`Depósito realizado com sucesso, no valor de R$${amount},00. O novo saldo da conta é: R$ ${this.#balance},00`);
     }
 
     cashWithdrawal(amount) {

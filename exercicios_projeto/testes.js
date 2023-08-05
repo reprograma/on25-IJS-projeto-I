@@ -1,4 +1,7 @@
-const { Clients, Gold, Premium, Standard } = require('./Client');
+const { Clients } = require('./Client');
+const { Gold } = require('./GoldAccount');
+const { Standard } = require('./StandardAccount');
+const { Premium } = require('./PremiunAccount');
 const { BankAccount } = require('./Account');
 
 const pedrin = new Premium("Pedro", 78657, "pedrin@outlook.com", 1195648392, 20000);
