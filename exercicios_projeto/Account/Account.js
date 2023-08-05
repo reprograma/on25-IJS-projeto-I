@@ -1,34 +1,24 @@
-class Account extends Client {
-    id
-    name
-    cpf
-    rendaMensal
-    saldo
+class Account {
+    agency
+    accountNumber
+    type
 
-    constructor(id, name, cpf, rendaMensal, saldo){
-        super(id, name, cpf, rendaMensal, saldo)
+    static allAcounts = []
+
+    constructor(agency, accountNumber){
+        this.agency = agency
+        this.accountNumber = accountNumber
+        this.type = ""
+
+        Account.allAcounts.push(this) // a cada instância é adicionada a lista estática de allAccounts
     }
 
-
-
-
-    cadastrarPix(){
-
+    createPix(){
+        
     }
 
-    sacar(){
-
-    }
-
-    transferir(){
-
-    }
-
-    pix(){
-
-    }
-
-    depositar(){
-
-    }
 }
+
+const account1 = new Account (1, 1)
+console.log(account1)
+module.exports = { Account, account1}
