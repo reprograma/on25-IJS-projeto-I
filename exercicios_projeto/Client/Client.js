@@ -12,6 +12,7 @@ class Client extends Account {
         this.salary = salary
     }
 
+
    accountType(){
        if(this.salary <= 4999.99){
            this.type = "Standard"
@@ -23,6 +24,9 @@ class Client extends Account {
 
        return this.type
    }
+
+   //setar função p/cadastrar email
+   //setar função p/cadastrar telefone
 
 }
 
