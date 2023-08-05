@@ -14,7 +14,8 @@ Antes de começar, vamos organizar nosso setup.
 * Entre na pasta do seu repositório (Para isso basta abrir o seu terminal e digitar `cd nome-do-seu-repositorio-forkado`)
 * 
 ### Montar setup
-*De o comando npm install para criar a pasta node modules
+*De o comando npm init para iniciar o projeto e criar o package.json 
+*De o comando npm npm install --save-dev jest para instalar o jest
 
 ### Objetivo
 Praticar os conceitos de OO e TDD aprendidos nas aulas anteriores
