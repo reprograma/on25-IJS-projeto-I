@@ -1,7 +1,9 @@
+const Bank = require("../Bank/Bank");
+
 class Account {
   client;
-  #balance;
-  dailyLimit;
+  #balance = 0;
+  dailyLimit = 0;
   #pixKeys = [];
 
   constructor(client) {
@@ -47,6 +49,20 @@ class Account {
 
   get pixKeys() {
     return this.#pixKeys
+  }
+
+  transferPix(destPixKey, amount) {
+    const destinationAccount = Bank.findAccountByPixKey(destPixKey);
+    if(!destinationAccount) {
+      throw new Error("Destination account not found.")
+    }
+
+    if(this.withdraw(amount)) {
+      destinationAccount.deposit(amount);
+      return true
+    } else {
+      throw new Error("Transfer failed. Insufficient balance or exceeding daily limit.");
+    }
   }
 }
 

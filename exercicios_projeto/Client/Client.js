@@ -2,6 +2,7 @@ class Client {
   name;
   #cpf;
   #income;
+  account = null;
 
   constructor(name, cpf, income) {
     this.name = name;
@@ -25,6 +26,10 @@ class Client {
     } else {
       return "Premium"
     }
+  }
+
+  set account(account) {
+    this.account = account;
   }
 }
 
