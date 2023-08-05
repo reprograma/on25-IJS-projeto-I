@@ -1,3 +1,8 @@
+const Account = require("../Account/Account");
+const GoldAccount = require("../GoldAccount/GoldAccount");
+const PremiumAccount = require("../PremiumAccount/PremiunAccount");
+const StandardAccount = require("../StandardAccount/StandardAccount");
+
 class Client {
   name;
   #cpf;
@@ -18,18 +23,19 @@ class Client {
     return this.#income
   }
 
-  get accountType() {
-    if(this.#income < 5000) {
-      return "Standard";
-    } else if(this.#income < 18000) {
-      return "Gold";
-    } else {
-      return "Premium"
-    }
-  }
+  registerAccount() {
+    let account;
 
-  set account(account) {
+    if(this.#income < 5000) {
+      account = new StandardAccount(this.#cpf)
+    } else if(this.#income < 18000) {
+      account = new GoldAccount(this.#cpf)
+    } else {
+      account = new PremiumAccount(this.#cpf)
+    }
+
     this.account = account;
+    return "Account created."
   }
 }
 

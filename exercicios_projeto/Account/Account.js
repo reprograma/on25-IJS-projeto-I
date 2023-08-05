@@ -1,13 +1,18 @@
 const Bank = require("../Bank/Bank");
 
 class Account {
-  client;
+  #cpf;
   #balance = 0;
-  dailyLimit = 0;
   #pixKeys = [];
+  dailyLimit = 0;
+  accountType = "";
 
-  constructor(client) {
-    this.client = client;
+  constructor(cpf) {
+    this.#cpf = cpf
+  }
+
+  get cpf() {
+    return this.#cpf
   }
 
   get balance() {
@@ -20,7 +25,7 @@ class Account {
   }
 
   withdraw(amount) {
-    if(amount <= this.#balance || amount <= this.dailyLimit) {
+    if(amount <= this.#balance && (amount <= this.dailyLimit || this.dailyLimit === null)) {
       this.#balance -= amount;
       return true;
     } else {
@@ -28,7 +33,11 @@ class Account {
     }
   }
 
-  transferTo(anotherAccount, amount) {
+  transferTo(anotherAccount, cpf, amount) {
+    if(!(anotherAccount instanceof Account) || anotherAccount !== Bank.findClientByCPF(cpf)) {
+      throw new Error("Account not found, cpf not registered.")
+    }
+    
     if(this.withdraw(amount)) {
       anotherAccount.deposit(amount);
       return true

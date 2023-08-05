@@ -7,11 +7,8 @@ class Bank {
     this.clients.push(client);
   }
 
-  static createAccount(client) {
-    const account = new Account(client);
-    client.account = account;
-
-    return account;
+  static findClientByCPF(cpf) {
+    return this.clients.find((client) => client.cpf === cpf);
   }
 
   static findAccountByPixKey(pixKey) {
