@@ -1,0 +1,23 @@
+{
+  "name": "on25-ijs-projeto-i",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">   <img src=\"assets/reprograma-fundos-claros.png\" alt=\"logo reprograma\" width=\"500\"> </h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunardosanjos/on25-IJS-projeto-I.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunardosanjos/on25-IJS-projeto-I/issues"
+  },
+  "homepage": "https://github.com/brunardosanjos/on25-IJS-projeto-I#readme",
+  "devDependencies": {
+    "jest": "^29.6.2"
+  }
+}
