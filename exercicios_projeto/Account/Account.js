@@ -21,24 +21,28 @@ class Account {
     if(amount <= this.#balance || amount <= this.dailyLimit) {
       this.#balance -= amount;
       return true;
+    } else {
+      throw new Error("Insufficient balance or exceeding daily limit.");
     }
-
-    return false;
   }
 
   transferTo(anotherAccount, amount) {
     if(this.withdraw(amount)) {
       anotherAccount.deposit(amount);
       return true
+    } else {
+      throw new Error("Transfer failed.");
     }
-
-    return false;
   }
 
   registerPixKey(keyType, value) {
-    const pixKey = { keyType, value };
-    this.#pixKeys.push(pixKey)
-    return true
+    if (keyType === "email" || keyType === "cpf" || keyType === "phone") {
+      const pixKey = { keyType, value };
+      this.pixKeys.push(pixKey);
+      return true
+    } else {
+      throw new Error("Invalid key type. Only email, cpf, and phone are allowed.");
+    }
   }
 
   get pixKeys() {
