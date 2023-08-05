@@ -15,6 +15,7 @@ Antes de começar, vamos organizar nosso setup.
 * 
 ### Montar setup
 *De o comando npm init para iniciar o projeto e criar o package.json 
+
 *De o comando npm npm install --save-dev jest para instalar o jest
 
 ### Objetivo
