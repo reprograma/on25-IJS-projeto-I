@@ -1,7 +1,7 @@
 class Account {
   client;
-  accountNumber;
-  agency;
+  #accountNumber;
+  #agency;
   #balance;
   pixKeys;
 
@@ -13,14 +13,26 @@ class Account {
     // }
 
     this.client = client;
-    this.accountNumber = accountNumber;
-    this.agency = agency;
+    this.#accountNumber = accountNumber;
+    this.#agency = agency;
     this.pixKeys = {
       cpf: undefined,
       email: undefined,
       telefone: undefined,
     };
     this.constructor.createdAccounts.push(this);
+  }
+
+  get accountNumber() {
+    return this.#accountNumber;
+  }
+
+  get agency() {
+    return this.#agency;
+  }
+
+  get balace() {
+    return this.#balance;
   }
 }
 
