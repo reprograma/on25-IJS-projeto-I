@@ -2,6 +2,7 @@ class Account {
   client;
   #balance;
   dailyLimit;
+  #pixKeys = [];
 
   constructor(client) {
     this.client = client;
@@ -32,6 +33,16 @@ class Account {
     }
 
     return false;
+  }
+
+  registerPixKey(keyType, value) {
+    const pixKey = { keyType, value };
+    this.#pixKeys.push(pixKey)
+    return true
+  }
+
+  get pixKeys() {
+    return this.#pixKeys
   }
 }
 
