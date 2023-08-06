@@ -85,11 +85,11 @@ class BankAccount {
 
     transferPix(amount, chave) {
         if (amount <= this.#balance) {
-            const targetAccount = BankAccount.all.find(account => account.pixKeys.cpf === chave);
-            if (targetAccount) {
+            const anotherAccount = BankAccount.all.find(account => account.pixKeys.cpf === chave);
+            if (anotherAccount) {
                 this.#balance -= amount;
-                targetAccount.#balance += amount;
-                console.log(`Pix realizado com sucesso no valor de R$${amount},00, para ${targetAccount.client.name}. Seu saldo atual é de R$${this.#balance},00`);
+                anotherAccount.#balance += amount;
+                console.log(`Pix realizado com sucesso no valor de R$${amount},00, para ${anotherAccount.client.name}. Seu saldo atual é de R$${this.#balance},00`);
             } else {
                 console.log(`Chave PIX inválida`);
             }
@@ -98,22 +98,26 @@ class BankAccount {
         }
     }
 
-    transferTo(amount, clients) {
+    transferTo(amount, cpf, account) {
         const transferLimit = this.client.transferLimit;
-        if (amount <= this.#balance && amount <= transferLimit) {
-            if (clients instanceof BankAccount) {
-                this.client.transferLimit -= amount;
-                this.#balance -= amount;
-                clients.#balance += amount;
-                console.log(`Transferência realizada com sucesso para ${clients.client.name}, no valor de R$${amount},00. Seu saldo atual é de R$${this.#balance},00.`);
-                return
-            }
-        } if (amount <= this.#balance && amount > transferLimit) {
+        const anotherAccount = BankAccount.all.find(acc => acc.accountNumber === account);
+        const anotherCpf = BankAccount.all.find(acc => acc.client.cpf === cpf);
+        if (amount > transferLimit) {
             console.log(`Você não possui limite diário disponível pra essa transferência. Seu limite atual é de R$${transferLimit},00`)
-            return
+            return;
         } if (amount > this.#balance) {
             console.log(`Saldo insuficiente. Seu saldo atual é de R$${this.#balance},00.`);
-            return
+            return;
+        } if (anotherAccount) {
+            if (anotherCpf) {
+                this.client.transferLimit -= amount;
+                this.#balance -= amount;
+                anotherAccount.#balance += amount;
+                console.log(`Transferência realizada com sucesso para ${anotherAccount.client.name}, no valor de R$${amount},00. Seu saldo atual é de R$${this.#balance},00.`);
+                return;
+            } else {
+                console.log("CPF não encontrado");
+            }
         } else {
             console.log('Ops ocorreu um erro, tente novamente mais tarde');
         }
@@ -122,3 +126,5 @@ class BankAccount {
 
 
 module.exports = { BankAccount };
+
+

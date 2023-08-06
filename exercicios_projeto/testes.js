@@ -30,13 +30,16 @@ console.log(keikoAccount);
 
 doriaAccount.transferPix(300, 647563);
 
-phyAccount.transferTo(100, pedrinAccount)
+phyAccount.transferTo(100, 78657, '34567')
 
 phyAccount.creditAmount(7000);
 
-phyAccount.transferTo(6000, pedrinAccount)
+// phyAccount.transferTo(6000, pedrinAccount)
 
 pedrinAccount.cashWithdrawal(30);
+
+// console.log(BankAccount.all);
+
 
 
 
