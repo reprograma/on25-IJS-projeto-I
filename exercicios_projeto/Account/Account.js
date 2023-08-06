@@ -82,9 +82,27 @@ class Account {
    return `O seu saldo atual é R$${this.#balance},00.` 
   }
 
+  transferTo(anotherAccount, amount) {
+    if(anotherAccount instanceof Account) {
+      if(amount <= this.#balance){
+        this.debitAmount(amount);
+        anotherAccount.creditAmount(amount);
+        return `Transferência de R$${amount},00 realizada com sucesso!`
+      } else {
+        return `Operação negada. Você não tem saldo suficiente.`
+      }
+    } else {
+      return `Insira uma conta válida!`
+    }
+  }
 }
+
 let client1 = new Client('Laíssa', 132854789658, 'laissa@teste.com', 998789658, 4000)
 let account1 = new Account(client1, 123, 45678);
+
+
+let client2 = new Client('Lucas', 13285478, 'lucas@teste.com', 99878, 6000)
+let account2 = new Account(client2, 123, 45656);
 
 console.log(account1);
 console.log(account1.balance);
@@ -94,4 +112,13 @@ account1.creditAmount(500)
 console.log(account1.balance);
 console.log(account1.debitAmount(100));
 
+
+console.log(account2);
+console.log(account2.balance);
+
+
+console.log(account1.transferTo(account2, 1500));
+console.log(account1.transferTo(account2, 500));
+console.log(account1.transferTo('account3', 500));
+console.log(account2.balance);
 module.exports = {Account}
