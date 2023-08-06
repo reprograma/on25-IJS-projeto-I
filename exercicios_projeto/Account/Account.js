@@ -3,7 +3,7 @@ class Account {
   client;
   #accountNumber;
   #agency;
-  #balance;
+  #balance = 0;
   pixKeys;
   // typeOfAccount;
 
@@ -33,8 +33,12 @@ class Account {
     return this.#agency;
   }
 
-  get balace() {
+  get balance() {
     return this.#balance;
+  }
+
+  set balance(newAmount) {
+    return this.#balance += newAmount;
   }
 
   registerPixKey(keyType, keyValue) {
@@ -67,8 +71,27 @@ class Account {
       }
     }
   }
-  
-}
 
+  debitAmount(amount) {
+    this.#balance -= amount;
+    return `O seu saldo atual é R$${this.#balance},00.` 
+  }
+
+  creditAmount(amount) {
+   this.#balance += amount;
+   return `O seu saldo atual é R$${this.#balance},00.` 
+  }
+
+}
+let client1 = new Client('Laíssa', 132854789658, 'laissa@teste.com', 998789658, 4000)
+let account1 = new Account(client1, 123, 45678);
+
+console.log(account1);
+console.log(account1.balance);
+account1.creditAmount(500)
+console.log(account1.balance);
+account1.creditAmount(500)
+console.log(account1.balance);
+console.log(account1.debitAmount(100));
 
 module.exports = {Account}

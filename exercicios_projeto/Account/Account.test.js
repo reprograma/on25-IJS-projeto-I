@@ -53,6 +53,20 @@ describe("Test the Account Class", () => {
        it("should return a msg de chave pix Phone já cadastrada.'", () => {
          expect(account1.registerPixKey('phone', 89658)).toEqual(`Chave Pix já cadastrada!`)
        })
+    }),
+
+    describe("", ()=> {
+      beforeAll(()=> {
+        account1.creditAmount(1000);
+      })
+
+      it("Should return the balance of the account- R$1000,00", () => {
+        expect(account1.balance).toBe(1000);
+      }),
+
+      it("Should debit the amount of R$90,00 and return R$910,00", () => {
+        expect(account1.debitAmount(90)).toBe('O seu saldo atual é R$910,00.');
+      })
     })
   })
 })
