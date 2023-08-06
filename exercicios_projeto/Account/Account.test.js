@@ -4,7 +4,7 @@ const {Client} =  require("../Client/Client")
 describe("Test the Account Class", () => {
   let client1;
   let account1;
-
+  
   beforeEach(() => {
     client1 = new Client('Laíssa', 132854789658, 'laissa@teste.com', 998789658, 4000)
     account1 = new Account(client1, 123, 45678);
@@ -37,8 +37,23 @@ describe("Test the Account Class", () => {
   })
   
   describe("Test the Account Class Methods", () => {
-    it("should test the regiterPixKey, in case of invalid key", () => {
-     
+    describe("Test the registerPixKey() Method", ()=> {
+      it("should test the registerPixKey(), in case of invalid key (different of 'cpf', 'email' or 'phone')", () => {
+        expect(account1.registerPixKey('anything different', 'teste')).toEqual('Insira um tipo de chave pix válida!');
+       })
+   
+       it("should verify if pixKey 'cpf' is the same of Client's Cpf'", () => {
+         expect(account1.registerPixKey('cpf', 132854)).toEqual(`Cpf diferente do cadastrado no banco de dados do Cliente. Verifique e tente novamente.`)
+       }),
+   
+       it("should return a msg de cadastro de chave pix do tipo phone.'", () => {
+         expect(account1.registerPixKey('phone', 89658)).toEqual(`Chave Pix: 89658 - do tipo phone, cadastrada com sucesso!`)
+       }),
+   
+       it("should return a msg de chave pix Phone já cadastrada.'", () => {
+         account1.pixKeys = {cpf: undefined, email: undefined, phone: 89658 };
+         expect(account1.registerPixKey('phone', 89658)).toEqual(`Chave Pix já cadastrada!`)
+       })
     })
   })
 })
