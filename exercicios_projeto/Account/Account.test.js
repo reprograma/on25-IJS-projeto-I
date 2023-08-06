@@ -1,15 +1,18 @@
 const {Account} = require('./Account');
+const {Client} =  require("../Client/Client")
 
 describe("Test the Account Class Attributes", () => {
+  let client1;
   let account1;
-  
+
   beforeEach(() => {
-    account1 = new Account("Laíssa", 123, 45678);
+    client1 = new Client('Laíssa', 132854789658, 'laissa@teste.com', 998789658, 4000)
+    account1 = new Account(client1, 123, 45678);
   })
 
-  // it("Should verify if client is instance of Client", ()=> {
-  //   expect(account1.client instanceof Client).toBe(true)
-  // })
+  it("Should verify if client is instance of Client", ()=> {
+    expect(account1.client instanceof Client).toBe(true)
+  })
 
   it("Shoud return Account Number and Agency", ()=> {
     expect(account1.accountNumber).toBe(123);
@@ -21,7 +24,8 @@ describe("Test the Account Class Attributes", () => {
   }),
 
   it("should verify if the static attribute createdAccounts is receiving the new accounts ", ()=> {
-    const account2 = new Account(345, 98768);
+    const client2 = new Client("Lucas", 13256987, 'lucas@teste.com', 12546875, 6000)
+    const account2 = new Account(client2, 345, 98768);
     expect(Account.createdAccounts).toContain(account1);
     expect(Account.createdAccounts).toContain(account2);
   })

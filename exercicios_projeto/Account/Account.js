@@ -1,3 +1,4 @@
+const { Client } = require("../Client/Client")
 class Account {
   client;
   #accountNumber;
@@ -8,9 +9,9 @@ class Account {
   static createdAccounts = [];
 
   constructor(client, accountNumber, agency) {
-    // if (!(client instanceof Client)) {
-    //   throw new Error("Informe um cliente válido.");
-    // }
+    if (!(client instanceof Client)) {
+      throw new Error("Informe um cliente válido.");
+    }
 
     this.client = client;
     this.#accountNumber = accountNumber;
