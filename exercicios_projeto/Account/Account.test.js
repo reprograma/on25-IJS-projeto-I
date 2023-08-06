@@ -5,7 +5,7 @@ describe("Test the Account Class", () => {
   let client1;
   let account1;
   
-  beforeEach(() => {
+  beforeAll(() => {
     client1 = new Client('Laíssa', 132854789658, 'laissa@teste.com', 998789658, 4000)
     account1 = new Account(client1, 123, 45678);
   })
@@ -51,7 +51,6 @@ describe("Test the Account Class", () => {
        }),
    
        it("should return a msg de chave pix Phone já cadastrada.'", () => {
-         account1.pixKeys = {cpf: undefined, email: undefined, phone: 89658 };
          expect(account1.registerPixKey('phone', 89658)).toEqual(`Chave Pix já cadastrada!`)
        })
     })
