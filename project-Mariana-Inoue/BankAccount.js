@@ -7,8 +7,8 @@ class BankAccount {
 	accountNumber;
 	agencyNumber;
 	#balance = 0;
-    #monthIncome
-
+	#monthIncome;
+	pixKeys = []
 
 	constructor(client, bank, accountNumber, agencyNumber) {
 		if (!(client instanceof Client)) {
@@ -39,13 +39,38 @@ class BankAccount {
 		this.#balance = newBalance;
 	}
 
-    get monthIncome(){
-        return this.#monthIncome
-    }
+	get monthIncome() {
+		return this.#monthIncome
+	}
 
-    set monthIncome(newIncome){
-        this.#monthIncome = newIncome
-    }
+	set monthIncome(newIncome) {
+		this.#monthIncome = newIncome
+	}
+
+	hasPixKeyInThisAccount(newPix) {
+		return (
+			this.pixKeys.find((element) => element.cpf === newPix.cpf) !== undefined)
+	}
+
+	registerPix(newPix) {
+
+		if (!(newPix instanceof Client)) {
+			console.log('Informe um cliente válido');
+			return;
+		}
+
+		if (this.hasPixKeyInThisAccount(newPix)) {
+			console.log(
+				`Cliente do CPF ${newPix.cpf}, ${newPix.name} já se encontra registrado`
+			);
+			return;
+		}
+
+		this.pixKeys.push(newPix)
+		const cpfIndex = Client.createPixKeys.findIndex((element) => element.cpf === newPix.cpf)
+		Client.createPixKeys[cpfIndex].qtdPixKeys++
+		console.log(`Pix ${newPix.cpf} criado para o cliente ${newPix.name}`)
+	}
 
 	creditAmount(amount) {
 		this.#balance += amount;
@@ -57,8 +82,6 @@ class BankAccount {
 		console.log(`O novo saldo da conta é: R$ ${this.#balance}`);
 	}
 
-    re
-
 	transferTo(anotherAccount, amount) {
 		if (!(anotherAccount instanceof BankAccount)) {
 			console.log('Informe uma conta válida!');
@@ -69,8 +92,7 @@ class BankAccount {
 		if (this.bank.bankCode !== anotherAccount.bank.bankCode) {
 			amountToBeDebited = amount + amount * this.bank.transferTax;
 			console.log(
-				`Essa transferência terá uma taxa de ${
-					this.bank.transferTax * 100
+				`Essa transferência terá uma taxa de ${this.bank.transferTax * 100
 				}%, pois se trata de uma transferência entre bancos diferentes.`
 			);
 		}
@@ -85,14 +107,48 @@ class BankAccount {
 			);
 		} else {
 			console.log(
-				`Saldo insuficiente para realizar a transferência. Seu saldo atual é de ${
-					this.#balance
+				`Saldo insuficiente para realizar a transferência. Seu saldo atual é de ${this.#balance
 				}. Para realizar essa transferência você precisa ter ${amountToBeDebited} em conta.`
 			);
 		}
 	}
 
-  
+	transferByPix(anotherAccount, amount) {
+		if (!(anotherAccount instanceof BankAccount)) {
+			console.log('Informe uma conta válida!');
+			return;
+		}
+
+		let amountToBeDebited = amount;
+		if (this.bank.bankCode === anotherAccount.bank.bankCode && this.pixKeys === anotherAccount.pixKeys) {
+			console.log('nao é possivel transferir ...........')
+		}
+
+		if (this.bank.bankCode !== anotherAccount.bank.bankCode && this.pixKeys !== anotherAccount.pixKeys) {
+			amountToBeDebited = amount + amount * this.bank.transferTax;
+			console.log(
+				`Essa transferência terá uma taxa de ${this.bank.transferTax * 100
+				}%, pois se trata de uma transferência entre bancos diferentes.`
+			);
+		}
+
+		if (this.#balance >= amountToBeDebited) {
+			this.#balance -= amountToBeDebited;
+			anotherAccount.balance += amount;
+
+			console.log(`O saldo atual da conta de origem é de R$ ${this.#balance}`);
+			console.log(
+				`O saldo atual da conta de destino é de R$ ${anotherAccount.balance}`
+			);
+		} else {
+			console.log(
+				`Saldo insuficiente para realizar a transferência. Seu saldo atual é de ${this.#balance
+				}. Para realizar essa transferência você precisa ter ${amountToBeDebited} em conta.`
+			);
+		}
+	}
+
+
 
 
 }

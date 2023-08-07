@@ -1,27 +1,46 @@
 const { Bank } = require('./Bank');
 
-
 class Client {
-
+    email;
     name;
     #cpf;
-    email;
+
     #phone;
     banks = [];
-    pixKeys = []
+    static createPixKeys = []
 
     constructor(name, cpf, email, phone) {
         this.#phone = phone;
+        this.email = email;
         this.name = name;
         this.#cpf = cpf;
+        this.constructor.createPixKeys.push(
+            {
+                cpf: this.#cpf,
+                email: this.email,
+                phone: this.#phone,
+                qtdPixKeys: 0,
+            }
+        )
+
     }
+
 
     get cpf() {
         return this.#cpf;
     }
 
-    get phone() {
-        return this.#phone;
+    set cpf(newCpf) {
+        this.#cpf = newCpf
+        //console.log(`Seu cpf ---------> ${newCpf}`)
+    }
+
+
+
+    printAsString() {
+        console.log(
+            `cpf: ${this.#cpf},  nome: ${this.name}`
+        );
     }
 
     hasAccountInThisBank(bank) {
@@ -51,31 +70,6 @@ class Client {
 
         console.log(`Banco ${bank.bankCode} adicionado à cliente ${this.name}.`);
     }
-
-
-    registerPix(newPix) {
-        if (!(newPix instanceof Bank)) {
-            console.log('Informe um banco válido');
-            return;
-        }
-
-        if (this.hasAccountInThisBank(bank)) {
-            console.log(
-                `Cliente do CPF ${this.cpf} já possui conta no banco ${bank.bankName}`
-            );
-         
-        }
-
-
-        this.pixKeys.push(pix);
-        const bankIndex = Bank.createdBanks.findIndex(
-            (element) => element.bankCode === bank.bankCode
-        );
-        Bank.createdBanks[bankIndex].qtdClients++;
-
-        console.log(`Banco ${bank.bankCode} adicionado à cliente ${this.name}.`);
-    }
-
 
 }
 
