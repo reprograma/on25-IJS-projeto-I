@@ -36,6 +36,7 @@ class BankAccount {
     creditAmount(amount) {
         this.#balance += amount;
         console.log(`Depósito realizado com sucesso, no valor de R$${amount},00. O novo saldo da conta é: R$ ${this.#balance},00`);
+        return 'creditado'
     }
 
     cashWithdrawal(amount) {
@@ -43,9 +44,10 @@ class BankAccount {
             this.balance -= amount;
             console.log(`Sacou o valor de R$${amount},00 `)
             console.log(`O saldo atual é de R$${this.balance},00. `)
-            return;
+            return 'ok';
         } else {
             console.log(`Você não possui saldo o suficiente`)
+            return 'error saldo'
         }
     }
 
@@ -65,21 +67,22 @@ class BankAccount {
         if (type == "e-mail") {
             this.pixKeys.email = this.client.email;
             console.log(`Chave pix criada com sucesso`);
-            return
+            return 'criado'
         } if (type == "cpf") {
             this.pixKeys.cpf = this.client.cpf;
             console.log(`Chave pix criada com sucesso`);
-            return
+            return 'criado'
         } if (type == "telefone") {
             this.pixKeys.telefone = this.client.telefone;
             console.log(`Chave pix criada com sucesso`);
-            return
+            return 'criado'
         } if (type == "chave aleatória") {
             this.pixKeys.randomKey = this.generateRandomKey(10);
             console.log(`Chave pix criada com sucesso`);
-            return
+            return 'criado'
         } else {
             console.log("Chave de Pix inválida")
+            return 'error'
         }
     }
 
@@ -90,11 +93,14 @@ class BankAccount {
                 this.#balance -= amount;
                 anotherAccount.#balance += amount;
                 console.log(`Pix realizado com sucesso no valor de R$${amount},00, para ${anotherAccount.client.name}. Seu saldo atual é de R$${this.#balance},00`);
+                return 'ok'
             } else {
                 console.log(`Chave PIX inválida`);
+                return 'error'
             }
         } else {
             console.log(`Você não possui saldo o suficiente, seu saldo atual é R$${this.#balance},00`);
+            return 'error'
         }
     }
 
@@ -104,22 +110,24 @@ class BankAccount {
         const anotherCpf = BankAccount.all.find(acc => acc.client.cpf === cpf);
         if (amount > transferLimit) {
             console.log(`Você não possui limite diário disponível pra essa transferência. Seu limite atual é de R$${transferLimit},00`)
-            return;
+            return 'error limite';
         } if (amount > this.#balance) {
             console.log(`Saldo insuficiente. Seu saldo atual é de R$${this.#balance},00.`);
-            return;
+            return 'error saldo';
         } if (anotherAccount) {
             if (anotherCpf) {
                 this.client.transferLimit -= amount;
                 this.#balance -= amount;
                 anotherAccount.#balance += amount;
                 console.log(`Transferência realizada com sucesso para ${anotherAccount.client.name}, no valor de R$${amount},00. Seu saldo atual é de R$${this.#balance},00.`);
-                return;
+                return 'ok';
             } else {
                 console.log("CPF não encontrado");
+                return 'error cpf'
             }
         } else {
             console.log('Ops ocorreu um erro, tente novamente mais tarde');
+            return 'error'
         }
     }
 }

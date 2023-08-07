@@ -34,7 +34,7 @@ phyAccount.transferTo(100, 78657, '34567')
 
 phyAccount.creditAmount(7000);
 
-// phyAccount.transferTo(6000, pedrinAccount)
+phyAccount.transferTo(6000, 78657, '34567')
 
 pedrinAccount.cashWithdrawal(30);
 
