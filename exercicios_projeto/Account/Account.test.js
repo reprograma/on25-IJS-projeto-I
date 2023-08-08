@@ -55,6 +55,16 @@ describe("Test the Account Class", () => {
        })
     }),
 
+    describe("Test hasPixKeysRegisteredInCreatedAccount()", ()=> {
+      it("should find the key and value and return the client's name", ()=> {
+        expect(Account.hasPixKeysRegisteredInCreatedAccount('email', 'lucas@test.com')).toEqual("Você está transferindo para Lucas.")
+      }),
+
+      it("shouldn't find a pix key and return 'Chave Pix não encontrada' ", ()=> {
+        expect((Account.hasPixKeysRegisteredInCreatedAccount('email', 'laissa@test.com'))).toEqual("Chave Pix não encontrada.")
+      })
+    }) 
+
     describe("Test all banking operations", ()=> {
       let client3;
       let account3;

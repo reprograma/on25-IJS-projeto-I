@@ -95,6 +95,18 @@ class Account {
       return `Insira uma conta válida!`
     }
   }
+
+ static hasPixKeysRegisteredInCreatedAccount(keyType, keyValue) {
+    const pixIndex =  this.createdAccounts.findIndex((element) => element.pixKeys[keyType] === keyValue);
+
+    if (pixIndex >= 0) {
+      const clientName = this.createdAccounts[pixIndex].client.name;
+      return `Você está transferindo para ${clientName}.`
+
+    } else {
+       return `Chave Pix não encontrada.`
+    }
+  }
 }
 
 let client1 = new Client('Laíssa', 132854789658, 'laissa@teste.com', 998789658, 4000)
@@ -104,21 +116,18 @@ let account1 = new Account(client1, 123, 45678);
 let client2 = new Client('Lucas', 13285478, 'lucas@teste.com', 99878, 6000)
 let account2 = new Account(client2, 123, 45656);
 
-console.log(account1);
-console.log(account1.balance);
-account1.creditAmount(500)
-console.log(account1.balance);
-account1.creditAmount(500)
-console.log(account1.balance);
-console.log(account1.debitAmount(100));
+account1.registerPixKey('phone', 99141);
+
+account2.registerPixKey('email', 'lucas@test.com');
+console.log(Account.createdAccounts)
+console.log(account1.client.name)
+
+console.log(Account.hasPixKeysRegisteredInCreatedAccount('email', 'laissa@test.com'))
+
+console.log(Account.hasPixKeysRegisteredInCreatedAccount('phone', 99141))
+
+console.log(Account.hasPixKeysRegisteredInCreatedAccount('email', 'lucas@test.com'))
 
 
-console.log(account2);
-console.log(account2.balance);
 
-
-console.log(account1.transferTo(account2, 1500));
-console.log(account1.transferTo(account2, 500));
-console.log(account1.transferTo('account3', 500));
-console.log(account2.balance);
 module.exports = {Account}
