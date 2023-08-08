@@ -1,4 +1,3 @@
-const Account = require("../Account/Account");
 const GoldAccount = require("../GoldAccount/GoldAccount");
 const PremiumAccount = require("../PremiumAccount/PremiunAccount");
 const StandardAccount = require("../StandardAccount/StandardAccount");
@@ -7,6 +6,7 @@ class Client {
   name;
   #cpf;
   #income;
+  accountType = "";
   account = null;
 
   constructor(name, cpf, income) {
@@ -27,11 +27,14 @@ class Client {
     let account;
 
     if(this.#income < 5000) {
-      account = new StandardAccount(this.#cpf)
+      account = new StandardAccount(this.#cpf);
+      this.accountType = "Standard";
     } else if(this.#income < 18000) {
-      account = new GoldAccount(this.#cpf)
+      account = new GoldAccount(this.#cpf);
+      this.accountType = "Gold";
     } else {
-      account = new PremiumAccount(this.#cpf)
+      account = new PremiumAccount(this.#cpf);
+      this.accountType = "Premium";
     }
 
     this.account = account;

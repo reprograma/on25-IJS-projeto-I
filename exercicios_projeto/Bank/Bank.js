@@ -1,5 +1,3 @@
-const Account = require("../Account/Account");
-
 class Bank {
   static clients = [];
 
