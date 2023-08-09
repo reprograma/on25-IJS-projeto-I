@@ -38,7 +38,7 @@ class Account {
   }
 
   set balance(newAmount) {
-    return this.#balance += newAmount;
+    return (this.#balance += newAmount);
   }
 
   registerPixKey(keyType, keyValue) {
@@ -48,7 +48,11 @@ class Account {
       if (this.pixKeys[keyType] !== undefined) {
         return `Chave Pix já cadastrada!`;
       } else {
-        if (keyType === "cpf" && typeof keyValue === "number" && keyValue === this.client.cpf) {
+        if (
+          keyType === "cpf" &&
+          typeof keyValue === "number" &&
+          keyValue === this.client.cpf
+        ) {
           this.pixKeys[keyType] = keyValue;
           return `Chave Pix: ${keyValue} - do tipo ${keyType}, cadastrada com sucesso!`;
         } else if (keyType === "cpf") {
@@ -74,37 +78,58 @@ class Account {
 
   debitAmount(amount) {
     this.#balance -= amount;
-    return `O seu saldo atual é R$${this.#balance},00.` 
+    return `O seu saldo atual é R$${this.#balance},00.`;
   }
 
   creditAmount(amount) {
-   this.#balance += amount;
-   return `O seu saldo atual é R$${this.#balance},00.` 
+    this.#balance += amount;
+    return `O seu saldo atual é R$${this.#balance},00.`;
   }
 
   transferTo(anotherAccount, amount) {
-    if(anotherAccount instanceof Account) {
-      if(amount <= this.#balance){
+    if (anotherAccount instanceof Account) {
+      if (amount <= this.#balance) {
         this.debitAmount(amount);
         anotherAccount.creditAmount(amount);
-        return `Transferência de R$${amount},00 realizada com sucesso!`
+        return `Transferência de R$${amount},00 realizada com sucesso!`;
       } else {
-        return `Operação negada. Você não tem saldo suficiente.`
+        return `Operação negada. Você não tem saldo suficiente.`;
       }
     } else {
-      return `Insira uma conta válida!`
+      return `Insira uma conta válida!`;
     }
   }
 
- static hasPixKeysRegisteredInCreatedAccount(keyType, keyValue) {
-    const pixIndex =  this.createdAccounts.findIndex((element) => element.pixKeys[keyType] === keyValue);
+  static hasPixKeysRegisteredInCreatedAccount(keyType, keyValue) {
+    const pixIndex = this.createdAccounts.findIndex(
+      (element) => element.pixKeys[keyType] === keyValue
+    );
 
     if (pixIndex >= 0) {
-      const clientName = this.createdAccounts[pixIndex].client.name;
-      return `Você está transferindo para ${clientName}.`
-
+      return this.createdAccounts[pixIndex];
     } else {
-       return `Chave Pix não encontrada.`
+      return null;
+    }
+  }
+
+  transferPix(keyType, keyValue, amount) {
+    if (keyType !== "cpf" && keyType !== "email" && keyType !== "phone") {
+      return `Insira um tipo de chave pix válida!`;
+    }
+
+    const foundAccount = Account.hasPixKeysRegisteredInCreatedAccount(
+      keyType,
+      keyValue
+    );
+
+    if (foundAccount) {
+      if (amount <= this.#balance) {
+        this.debitAmount(amount);
+        foundAccount.creditAmount(amount);
+        return `Pix de R$${amount},00 realizado com sucesso! Seu saldo atual é de R$${this.#balance},00`;
+      } else {
+        return `Saldo indisponível`;
+      }
     }
   }
 }
@@ -120,14 +145,8 @@ account1.registerPixKey('phone', 99141);
 
 account2.registerPixKey('email', 'lucas@test.com');
 console.log(Account.createdAccounts)
-console.log(account1.client.name)
-
-console.log(Account.hasPixKeysRegisteredInCreatedAccount('email', 'laissa@test.com'))
-
-console.log(Account.hasPixKeysRegisteredInCreatedAccount('phone', 99141))
-
-console.log(Account.hasPixKeysRegisteredInCreatedAccount('email', 'lucas@test.com'))
-
-
-
+account1.creditAmount(500)
+console.log(account2.balance)
+console.log(account1.transferPix('email', 'lucas@test.com', 100))
+console.log(account2.balance)
 module.exports = {Account}

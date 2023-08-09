@@ -57,11 +57,11 @@ describe("Test the Account Class", () => {
 
     describe("Test hasPixKeysRegisteredInCreatedAccount()", ()=> {
       it("should find the key and value and return the client's name", ()=> {
-        expect(Account.hasPixKeysRegisteredInCreatedAccount('email', 'lucas@test.com')).toEqual("Você está transferindo para Lucas.")
+        expect(Account.hasPixKeysRegisteredInCreatedAccount('email', 'lucas@test.com')).toEqual({"client": {"name": "Lucas"}, "pixKeys": {"cpf": undefined, "email": "lucas@test.com", "phone": undefined}})
       }),
 
       it("shouldn't find a pix key and return 'Chave Pix não encontrada' ", ()=> {
-        expect((Account.hasPixKeysRegisteredInCreatedAccount('email', 'laissa@test.com'))).toEqual("Chave Pix não encontrada.")
+        expect((Account.hasPixKeysRegisteredInCreatedAccount('email', 'laissa@test.com'))).toBeNull();
       })
     }) 
 
@@ -73,6 +73,7 @@ describe("Test the Account Class", () => {
 
         client3 = new Client('Lucas', 13285478, 'lucas@teste.com', 99878, 6000)
         account3 = new Account(client3, 123, 45656);
+
       })
 
       it("Should test creditAmount(1000), and return the account balance: R$1000,00", () => {
@@ -95,6 +96,13 @@ describe("Test the Account Class", () => {
 
       it("should return 'invalid operation' due to no balance", () => {
         expect(account1.transferTo(account3, 900)).toEqual(`Operação negada. Você não tem saldo suficiente.`)
+      }),
+
+      it("should test transferPix() and return the updated balance of account1 e account 3", ()=> {
+        account3.registerPixKey("phone", 99878);
+        expect(account1.transferPix("phone", 99878, 100)).toBe(`Pix de R$100,00 realizado com sucesso! Seu saldo atual é de R$610,00`);
+        expect(account3.balance).toBe(300)
+        expect(account1.balance).toBe(610)
       })
 
     })
