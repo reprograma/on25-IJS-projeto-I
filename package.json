@@ -1,0 +1,22 @@
+{
+  "name": "on25-ijs-projeto-i",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">\r   <img src=\"assets/reprograma-fundos-claros.png\" alt=\"logo reprograma\" width=\"500\">\r </h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thayssa-souza/on25-IJS-projeto-I.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thayssa-souza/on25-IJS-projeto-I/issues"
+  },
+  "homepage": "https://github.com/thayssa-souza/on25-IJS-projeto-I#readme",
+  "dependencies": {
+    "jest": "^29.6.2"
+  }
+}
