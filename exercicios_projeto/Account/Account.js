@@ -77,8 +77,12 @@ class Account {
   }
 
   debitAmount(amount) {
-    this.#balance -= amount;
-    return `O seu saldo atual é R$${this.#balance},00.`;
+    if (amount <= this.#balance) {
+      this.#balance -= amount;
+      return `O seu saldo atual é R$${this.#balance},00.`;
+    } else {
+      return `Operação negada. Você não tem saldo suficiente.`
+    }
   }
 
   creditAmount(amount) {
@@ -149,4 +153,7 @@ account1.creditAmount(500)
 console.log(account2.balance)
 console.log(account1.transferPix('email', 'lucas@test.com', 100))
 console.log(account2.balance)
+
+console.log(account2.debitAmount(100));
+console.log(account2.debitAmount(100));
 module.exports = {Account}
