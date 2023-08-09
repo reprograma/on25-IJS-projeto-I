@@ -4,10 +4,14 @@ const {Client} =  require("../Client/Client")
 describe("Test the Account Class", () => {
   let client1;
   let account1;
+  let client2;
+  let account2;
   
   beforeAll(() => {
     client1 = new Client('Laíssa', 132854789658, 'laissa@teste.com', 998789658, 4000)
     account1 = new Account(client1, 123, 45678);
+    client2 = new Client("Lucas", 13256987, 'lucas@teste.com', 12546875, 6000)
+    account2 = new Account(client2, 345, 98768);
   })
 
   describe("Test the Account Class Attributes", () => {  
@@ -25,15 +29,14 @@ describe("Test the Account Class", () => {
     }),
   
     it("should verify if the static attribute createdAccounts is receiving the new accounts ", ()=> {
-      const client2 = new Client("Lucas", 13256987, 'lucas@teste.com', 12546875, 6000)
-      const account2 = new Account(client2, 345, 98768);
       expect(Account.createdAccounts).toContain(account1);
       expect(Account.createdAccounts).toContain(account2);
-    })
+    }),
 
-    // it("should return de Type of the Account 'Standard'", ()=> {
-    //   expect(account1.typeOfAccount).toEqual("Standard")
-    // })
+    it("should generate the type of Account, and return Standard and Gold", ()=> {
+      expect(account1.generateTypeAccount()).toEqual("Standard");
+      expect(account2.generateTypeAccount()).toEqual("Gold");
+    })
   })
   
   describe("Test the Account Class Methods", () => {
@@ -48,6 +51,7 @@ describe("Test the Account Class", () => {
    
        it("should return a msg de cadastro de chave pix do tipo phone.'", () => {
          expect(account1.registerPixKey('phone', 89658)).toEqual(`Chave Pix: 89658 - do tipo phone, cadastrada com sucesso!`)
+         expect(account2.registerPixKey('email', 'lucas@test.com')).toEqual(`Chave Pix: lucas@test.com - do tipo email, cadastrada com sucesso!`)
        }),
    
        it("should return a msg de chave pix Phone já cadastrada.'", () => {
@@ -56,8 +60,8 @@ describe("Test the Account Class", () => {
     }),
 
     describe("Test hasPixKeysRegisteredInCreatedAccount()", ()=> {
-      it("should find the key and value and return the client's name", ()=> {
-        expect(Account.hasPixKeysRegisteredInCreatedAccount('email', 'lucas@test.com')).toEqual({"client": {"name": "Lucas"}, "pixKeys": {"cpf": undefined, "email": "lucas@test.com", "phone": undefined}})
+      it("should find the key and value and return the Object", ()=> {
+        expect(Account.hasPixKeysRegisteredInCreatedAccount('email', 'lucas@test.com')).toEqual({"client": {"name": "Lucas"}, "pixKeys": {"cpf": undefined, "email": "lucas@test.com", "phone": undefined}, "typeOfAccount": "Gold"})
       }),
 
       it("shouldn't find a pix key and return 'Chave Pix não encontrada' ", ()=> {
@@ -104,7 +108,6 @@ describe("Test the Account Class", () => {
         expect(account3.balance).toBe(300)
         expect(account1.balance).toBe(610)
       })
-
     })
   })
 })
