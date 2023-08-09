@@ -1,1 +1,1 @@
-// chamar o cliente
+class PremiumAccount extends Client {}
