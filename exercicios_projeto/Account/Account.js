@@ -72,15 +72,9 @@ class Account {
   }
 
   transferTo(anotherAccount, anotherCPF, amount) {
-    if (
-      !(
-        anotherAccount instanceof Account &&
-        anotherCPF === anotherAccount.client.cpf
-      )
-    ) {
+    if (!(anotherAccount instanceof Account && anotherCPF === anotherAccount.client.cpf)) {
       throw new Error(`Operação cancelada. Informe uma conta válida.`);
     }
-
     if (amount > this.balance) {
       throw new Error(
         `Operação cancelada, valor solicitado maior que saldo atual.`
