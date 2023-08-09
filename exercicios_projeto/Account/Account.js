@@ -5,7 +5,7 @@ class Account {
   #agency;
   #balance = 0;
   pixKeys;
-  // typeOfAccount;
+  typeOfAccount = "";
 
   static createdAccounts = [];
 
@@ -39,6 +39,18 @@ class Account {
 
   set balance(newAmount) {
     return (this.#balance += newAmount);
+  }
+
+  generateTypeAccount(){
+    const clientIncome = this.client.income;
+
+    if(clientIncome <= 4999 ){
+      return this.typeOfAccount = "Standard" 
+    } else if (clientIncome <=17999) {
+      return this.typeOfAccount = "Gold" 
+    } else {
+      return this.typeOfAccount = "Premium" 
+    }
   }
 
   registerPixKey(keyType, keyValue) {
@@ -136,24 +148,27 @@ class Account {
       }
     }
   }
+
 }
 
-let client1 = new Client('Laíssa', 132854789658, 'laissa@teste.com', 998789658, 4000)
-let account1 = new Account(client1, 123, 45678);
+// let client1 = new Client('Laíssa', 132854789658, 'laissa@teste.com', 998789658, 4999)
+// let account1 = new Account(client1, 123, 45678);
 
 
-let client2 = new Client('Lucas', 13285478, 'lucas@teste.com', 99878, 6000)
-let account2 = new Account(client2, 123, 45656);
+// let client2 = new Client('Lucas', 13285478, 'lucas@teste.com', 99878, 18000)
+// let account2 = new Account(client2, 123, 45656);
 
-account1.registerPixKey('phone', 99141);
+// account1.registerPixKey('phone', 99141);
 
-account2.registerPixKey('email', 'lucas@test.com');
-console.log(Account.createdAccounts)
-account1.creditAmount(500)
-console.log(account2.balance)
-console.log(account1.transferPix('email', 'lucas@test.com', 100))
-console.log(account2.balance)
+// account2.registerPixKey('email', 'lucas@test.com');
+// console.log(Account.createdAccounts)
+// account1.creditAmount(500)
+// console.log(account2.balance)
+// console.log(account1.transferPix('email', 'lucas@test.com', 100))
+// console.log(account2.balance)
 
-console.log(account2.debitAmount(100));
-console.log(account2.debitAmount(100));
+
+// console.log(account2.debitAmount(100));
+// console.log(account2.debitAmount(100));
+
 module.exports = {Account}
