@@ -19,7 +19,7 @@ describe("Test the Account Class", () => {
       expect(account1.client instanceof Client).toBe(true)
     }),
   
-    it("Shoud return Account Number and Agency", ()=> {
+    it("Should return Account Number and Agency", ()=> {
       expect(account1.accountNumber).toBe(123);
       expect(account1.agency).toBe(45678);
     }),
@@ -70,14 +70,9 @@ describe("Test the Account Class", () => {
     }) 
 
     describe("Test all banking operations", ()=> {
-      let client3;
-      let account3;
+
       beforeAll(()=> {
         account1.creditAmount(1000);
-
-        client3 = new Client('Lucas', 13285478, 'lucas@teste.com', 99878, 6000)
-        account3 = new Account(client3, 123, 45656);
-
       })
 
       it("Should test creditAmount(1000), and return the account balance: R$1000,00", () => {
@@ -92,20 +87,20 @@ describe("Test the Account Class", () => {
         expect(account1.transferTo("qualquercoisa", 500)).toBe(`Insira uma conta válida!`);
       }),
 
-      it("should test the transferTo method - Considering that account1 has R$910,00 and account3 has R$0,00", () => {
-        account1.transferTo(account3, 200);
+      it("should test the transferTo method - Considering that account1 has R$910,00 and account2 has R$0,00", () => {
+        account1.transferTo(account2, 200);
         expect(account1.balance).toBe(710);
-        expect(account3.balance).toBe(200);
+        expect(account2.balance).toBe(200);
       }),
 
       it("should return 'invalid operation' due to no balance", () => {
-        expect(account1.transferTo(account3, 900)).toEqual(`Operação negada. Você não tem saldo suficiente.`)
+        expect(account1.transferTo(account2, 900)).toEqual(`Operação negada. Você não tem saldo suficiente.`)
       }),
 
-      it("should test transferPix() and return the updated balance of account1 e account 3", ()=> {
-        account3.registerPixKey("phone", 99878);
+      it("should test transferPix() and return the updated balance of account1 e account2", ()=> {
+        account2.registerPixKey("phone", 99878);
         expect(account1.transferPix("phone", 99878, 100)).toBe(`Pix de R$100,00 realizado com sucesso! Seu saldo atual é de R$610,00`);
-        expect(account3.balance).toBe(300)
+        expect(account2.balance).toBe(300)
         expect(account1.balance).toBe(610)
       })
     })
