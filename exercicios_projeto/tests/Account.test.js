@@ -36,7 +36,7 @@ beforeEach(() => {
 
 // testar criaçao
 describe("Testing criation with Account", () => {
-  it("Should return Acc{}", () => {
+  it("Should return true and verify getters", () => {
     acc = new Account(yukaClient, nubank);
     expect(acc instanceof Account).toBeTruthy();
     expect(acc.client).toEqual(yukaClient);
