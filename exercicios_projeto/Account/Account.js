@@ -1,3 +1,5 @@
+//const { Client } = require('../Client/Client')
+
 class Account {
     accountNumber;
     agencyNumber;
@@ -33,6 +35,7 @@ class Account {
     }
 
     transferTo(anotherAccount, cpf, amount) {
+
         if (this.#balance >= amount) {
             this.#balance -= amount
             console.log(`Transferência de R$ ${amount},00 realizada com sucesso. Seu novo saldo é de ${this.#balance},00.`)
@@ -41,7 +44,7 @@ class Account {
         }
     }
 
-    pix(key, amount) { 
+    pix(key, amount) {
         if (this.#balance >= amount) {
             this.#balance -= amount
             console.log(`PIX de R$ ${amount},00 realizado com sucesso. Seu novo saldo é de ${this.#balance},00.`)
@@ -57,6 +60,10 @@ class Account {
     set balance(newBalance) {
         this.#balance = newBalance;
     }
+
+    getBalance(){
+        return this.#balance;
+    }
 }
 
 const account1 = new Account(1223, 001);
@@ -67,9 +74,15 @@ account1.credit(100);
 
 //console.log(account1)
 
-//account1.creatKeyPix('ijs@gmail.com')
+account1.creatKeyPix('ijs@gmail.com')
 
 //console.log(account1)
 
-account1.transferTo(0102, 123456, 30)
-account1.pix(1234, 200)
+//account1.transferTo(0102, 123456, 30)
+//account1.pix(1234, 200)
+
+
+module.exports = {
+    Account,
+    account1,
+}
