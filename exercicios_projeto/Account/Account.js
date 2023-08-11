@@ -6,7 +6,7 @@ class Account {
   #balance = 0;
   pixKeys;
   typeOfAccount = "";
-  dailyTransactionLimit = 0;
+  dailyTransactionUsed = 0;
 
   static createdAccounts = [];
 
@@ -99,9 +99,10 @@ class Account {
   }
 
   creditAmount(amount) {
+    console.log(`oieeee ${this.dailyTransactionUsed} `)
     
     this.#balance += amount;
-    this.dailyTransactionLimit += amount;
+    this.dailyTransactionUsed += amount;
     return `O seu saldo atual é R$${this.#balance},00.`;
   }
 
@@ -153,13 +154,12 @@ class Account {
   }
 
   verifyDailyTransactionLimit(amount) {
-    
     const typeOfAccount = this.generateTypeAccount();
 
     const dailyLimitStandard = 1000;
     const dailyLimitGold = 5000;
 
-    if(typeOfAccount === "Standard" && this.dailyTransactionLimit + amount > dailyLimitStandard || typeOfAccount === "Gold" && this.dailyTransactionLimit + amount > dailyLimitGold) {
+    if(typeOfAccount === "Standard" && this.dailyTransactionUsed + amount > dailyLimitStandard || typeOfAccount === "Gold" && this.dailyTransactionUsed + amount > dailyLimitGold) {
       return `Limite diário atingido.`;
     } else {
       return true
@@ -167,22 +167,21 @@ class Account {
   }
 }
 
-let client1 = new Client('Laíssa', 132854789658, 'laissa@teste.com', 998789658, 4999)
+let client1 = new Client('Laíssa', 132854789658, 'laissa@teste.com', 998789658, 1000)
 let account1 = new Account(client1, 123, 45678);
-
 
 let client2 = new Client('Lucas', 13285478, 'lucas@teste.com', 99878, 1000)
 let account2 = new Account(client2, 123, 45656);
 
-console.log(account1.dailyTransactionLimit);
-account1.creditAmount(1050);
-console.log(account1.dailyTransactionLimit);
+console.log(account1.dailyTransactionUsed);
 
+console.log(account1.dailyTransactionUsed);
 
-console.log(account1.dailyTransactionLimit);
-console.log(account1.verifyDailyTransactionLimit(5000))
+console.log(account1.creditAmount(1050));
+console.log(account1.dailyTransactionUsed);
+console.log(account1.creditAmount(1050));
 account1.creditAmount(1050);
-console.log(account1.dailyTransactionLimit);
+console.log(`${account1.dailyTransactionUsed} Transações diárias usadas`);
 
 // account1.registerPixKey('phone', 99141);
 
