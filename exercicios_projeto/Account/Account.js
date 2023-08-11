@@ -45,8 +45,7 @@ class Account {
   }
 
   static findAccountByPixKey(pixKey) {
-    // Simulação: Supondo que todas as contas estejam em um array chamado 'allAccounts'
-    const allAccounts = [client1.account, client2.account]; // Supondo que client1 e client2 estejam definidos
+    const allAccounts = [client1.account, client2.account];
     for (const account of allAccounts) {
       if (
         account.client.pixKeys.email === pixKey ||
