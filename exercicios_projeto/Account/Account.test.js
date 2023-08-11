@@ -1,4 +1,4 @@
-const Account = require('./Account'); // Verifique o caminho correto para o arquivo Account.js
+const Account = require('./Account');
 
 describe('Account class', () => {
   let client1, client2;
