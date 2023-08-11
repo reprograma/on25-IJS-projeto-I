@@ -1,36 +1,45 @@
 
 class Client {
-    id;
     name;
     #cpf;
     email;
     phone;
     #income;
-    
-    
-    //static createdClients = [];
+        
+    static createdClients = [];
 
     constructor(name, cpf, income) {
         this.name = name;
         this.#cpf = cpf;
         this.income = income;
         
+        
+        // this.verifyCpf();
+
+        Client.createdClients.push(this)
     }
 
     get cpf() {
-        //to do
+        return this.#cpf;
+    }
+    
+    get income() {
+        return this.#income;
     }
 
-    createClient() {
-        //to do
+    set income(income) {
+        this.#income = income;
     }
 
-    addEmail() {
-        //to do
+    addEmail(email) {
+        this.email = email;
+        Client.createdClients.email = this.email;
+
     } 
 
-    addPhone() {
-        //to do
+    addPhone(phone) {
+        this.phone = phone;
+        Client.createdClients.phone = this.phone;
     }
 
 }
