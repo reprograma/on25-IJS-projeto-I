@@ -61,7 +61,7 @@ describe("Test the Account Class", () => {
 
     describe("Test hasPixKeysRegisteredInCreatedAccount()", ()=> {
       it("should find the key and value and return the Object", ()=> {
-        expect(Account.hasPixKeysRegisteredInCreatedAccount('email', 'lucas@test.com')).toEqual({"client": {"name": "Lucas"}, "pixKeys": {"cpf": undefined, "email": "lucas@test.com", "phone": undefined}, "typeOfAccount": "Gold"})
+        expect(Account.hasPixKeysRegisteredInCreatedAccount('email', 'lucas@test.com')).toEqual({"client": {"name": "Lucas"}, "dailyTransactionUsed": 0, "pixKeys": {"cpf": undefined, "email": "lucas@test.com", "phone": undefined}, "typeOfAccount": "Gold"})
       }),
 
       it("shouldn't find a pix key and return 'Chave Pix não encontrada' ", ()=> {
