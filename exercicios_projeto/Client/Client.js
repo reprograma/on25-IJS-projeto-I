@@ -1,4 +1,4 @@
-const Account = require('./Account');
+const Account = require('../Account/Account');
 
 class Client extends Account {
   constructor(name, monthlyIncome, accountType) {
