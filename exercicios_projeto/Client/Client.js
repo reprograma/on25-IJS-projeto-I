@@ -55,18 +55,4 @@ module.exports = { Client }
 const client2 = new Client('Eva', 757, 7000, 'Money Bank', 113)
 
 
-// const client3 = new Client('Luna', 654, 27000, 'Money Bank', 114)
-// // client1.account.deposit(2000)
-client2.account.deposit(20000)
 
-// // client1.account.transferTo(client2.account, 500)
-// // console.log(client1.account.balance)
-// console.log(client2.account)
-// console.log(client3.account)
-// console.log(client3.account.accountNumber)
-// console.log(client3.name)
-// // client1.account.registerKeysPix('cpf', 708)
-// // client1.account.registerKeysPix('email', 'yelitza@mock.com')
-client2.account.withdrawal(5000)
-client2.account.withdrawal(5000)
-console.log(client2.account.balance)
