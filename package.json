@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "jest": "^29.6.2"
+  },
+  "name": "aula-7",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "<h1 align=\"center\">\r   <img src=\"assets/reprograma-fundos-claros.png\" alt=\"logo reprograma\" width=\"500\">\r </h1>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danibotelho/on25-IJS-projeto-I.git"
+  },
+  "bugs": {
+    "url": "https://github.com/danibotelho/on25-IJS-projeto-I/issues"
+  },
+  "homepage": "https://github.com/danibotelho/on25-IJS-projeto-I#readme"
+}
