@@ -2,7 +2,9 @@
 const { Bank } = require('./Bank');
 const { Client } = require('./Client');
 const { BankAccount } = require('./BankAccount');
-
+const { StandardAccount} = require('./StandardAccount');
+const { GoldAccount} = require('./GoldAccount');
+const { PremiumAccount} = require('./PremiumAccount');
 // Criação de bancos
 const bank1 = new Bank(100, 'Lua Bank', 0.01);
 const bank2 = new Bank(200, 'Code Bank', 0.02);
@@ -58,18 +60,22 @@ client1.printAsString()
 // */
 
 // Criação de conta
-const bankAccount1 = new BankAccount(client1, bank1, 1111, 2222);
+const bankAccount1 = new BankAccount(client1, bank1, 1111, 2222, 'Standard');
 const bankAccount2 = new BankAccount(client2, bank2, 3333, 4444);
 
 console.log(bankAccount1)
 bankAccount1.registerPix(client1)
 bankAccount1.registerPix(client1)
+bankAccount1.showAccount()
 // // Utilizando os métodos de Conta Corrente
 // bankAccount1.creditAmount(5000); // O novo saldo da conta após o crédito é: R$ 5000,00
 // bankAccount2.creditAmount(2000); // O novo saldo da conta após o crédito é: R$ 2000,00
 
 // // Transferência entre bancos diferentes
-bankAccount1.transferByPix(bankAccount1, 1500);
+//bankAccount1.transferByPix(bankAccount1, 1500);
+
+
+//bankAccount1.showAccount('Gold')
 //bankAccount2.transferTo(bankAccount1, 5000);
 
 /** Exemplo de saídas:

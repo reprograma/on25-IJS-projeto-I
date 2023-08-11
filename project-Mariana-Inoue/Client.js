@@ -6,6 +6,7 @@ class Client {
     #cpf;
 
     #phone;
+ 
     banks = [];
     static createPixKeys = []
 
@@ -14,6 +15,7 @@ class Client {
         this.email = email;
         this.name = name;
         this.#cpf = cpf;
+      
         this.constructor.createPixKeys.push(
             {
                 cpf: this.#cpf,
@@ -35,7 +37,23 @@ class Client {
         //console.log(`Seu cpf ---------> ${newCpf}`)
     }
 
+    // get monthIncome() {
+    //     return this.#monthIncome;
+    // }
 
+    // set monthIncome(newMonthIncome) {
+    //     this.#monthIncome = newMonthIncome
+    //     //console.log(`Seu cpf ---------> ${newCpf}`)
+    // }
+
+    get phone() {
+        return this.#phone;
+    }
+
+    set phone(newPhone) {
+        this.#phone = newPhone
+        //console.log(`Seu cpf ---------> ${newCpf}`)
+    }
 
     printAsString() {
         console.log(
