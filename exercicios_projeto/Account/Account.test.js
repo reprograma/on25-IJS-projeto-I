@@ -6,12 +6,16 @@ describe("Test the Account Class", () => {
   let account1;
   let client2;
   let account2;
+  let client3;
+  let account3;
   
   beforeAll(() => {
     client1 = new Client('Laíssa', 132854789658, 'laissa@teste.com', 998789658, 4000)
     account1 = new Account(client1, 123, 45678);
     client2 = new Client("Lucas", 13256987, 'lucas@teste.com', 12546875, 6000)
     account2 = new Account(client2, 345, 98768);
+    client3 = new Client("Tania", 13254857, 'tania@teste.com', 68751254, 12000)
+    account3 = new Account(client3, 678, 76988);
   })
 
   describe("Test the Account Class Attributes", () => {  
@@ -94,7 +98,7 @@ describe("Test the Account Class", () => {
       }),
 
       it("should return 'invalid operation' due to no balance", () => {
-        expect(account1.transferTo(account2, 900)).toEqual(`Operação negada. Você não tem saldo suficiente.`)
+        expect(account2.transferTo(account1, 900)).toEqual(`Operação negada. Você não tem saldo suficiente.`)
       }),
 
       it("should test transferPix() and return the updated balance of account1 e account2", ()=> {
@@ -102,7 +106,27 @@ describe("Test the Account Class", () => {
         expect(account1.transferPix("phone", 99878, 100)).toBe(`Pix de R$100,00 realizado com sucesso! Seu saldo atual é de R$610,00`);
         expect(account2.balance).toBe(300)
         expect(account1.balance).toBe(610)
+        
       })
-    })
+
+      it("should return the 'dailyTransactionUsed' Account1 and Account2", () => {
+        expect(account1.dailyTransactionUsed).toBe(390)
+        expect(account2.dailyTransactionUsed).toBe(0)
+      } )
+
+      describe("Test verifyDailyTransactionLimit()", () => {
+        it("should return 'Limite diário atingido', because account3 has a Gold Status and has 5000 of daily limit", () => {
+          account3.creditAmount(10000);
+          account3.debitAmount(1000);
+          account3.transferTo(account1, 2000);
+          account2.registerPixKey("phone", 99878);
+          account3.transferPix("phone", 99878, 2000);
+          expect(account3.generateTypeAccount()).toEqual("Gold");
+          expect(account3.verifyDailyTransactionLimit(1)).toBe("Limite diário atingido.");
+          expect(account3.dailyTransactionUsed).toBe(5000);
+        })
+      })
+      
+    }) 
   })
 })
