@@ -112,9 +112,17 @@ class Account {
 
   transferTo(anotherAccount, amount) {
     if (anotherAccount instanceof Account) {
+
+      const checkLimite = this.verifyDailyTransactionLimit(amount);
+
+      if(checkLimite !== true) {
+       return checkLimite
+       } 
+
       if (amount <= this.#balance) {
         this.debitAmount(amount);
         anotherAccount.creditAmount(amount);
+        this.dailyTransactionUsed += amount;
         return `Transferência de R$${amount},00 realizada com sucesso!`;
       } else {
         return `Operação negada. Você não tem saldo suficiente.`;
