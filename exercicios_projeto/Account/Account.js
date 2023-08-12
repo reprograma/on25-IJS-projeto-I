@@ -20,6 +20,9 @@ class Account {
   }
 
   deposit(amount) {
+    if(isNaN(amount)) {
+      throw new Error("amount is not a number, digit a valid value")
+    }
     this.#balance += amount;
     return true
   }
