@@ -1,4 +1,4 @@
-const { Client } = require("../Client/Client")
+const { Client } = require("../Client/Client");
 class Account {
   client;
   #accountNumber;
@@ -7,6 +7,7 @@ class Account {
   pixKeys;
   typeOfAccount = "";
   dailyTransactionUsed = 0;
+  // Lógica de limite diário de transação será aplicada às Operações debitAmout() /TransferTo() /TransferPixTo()
 
   static createdAccounts = [];
 
@@ -42,15 +43,15 @@ class Account {
     return (this.#balance += newAmount);
   }
 
-  generateTypeAccount(){
+  generateTypeAccount() {
     const clientIncome = this.client.income;
 
-    if(clientIncome <= 4999 ){
-      return this.typeOfAccount = "Standard" 
-    } else if (clientIncome <=17999) {
-      return this.typeOfAccount = "Gold" 
+    if (clientIncome <= 4999) {
+      return (this.typeOfAccount = "Standard");
+    } else if (clientIncome <= 17999) {
+      return (this.typeOfAccount = "Gold");
     } else {
-      return this.typeOfAccount = "Premium" 
+      return (this.typeOfAccount = "Premium");
     }
   }
 
@@ -92,16 +93,16 @@ class Account {
   debitAmount(amount) {
     const checkLimite = this.verifyDailyTransactionLimit(amount);
 
-    if(checkLimite !== true) {
-     return checkLimite
-     } 
+    if (checkLimite !== true) {
+      return checkLimite;
+    }
 
     if (amount <= this.#balance) {
       this.#balance -= amount;
       this.dailyTransactionUsed += amount;
       return `O seu saldo atual é R$${this.#balance},00.`;
     } else {
-      return `Operação negada. Você não tem saldo suficiente.`
+      return `Operação negada. Você não tem saldo suficiente.`;
     }
   }
 
@@ -112,7 +113,6 @@ class Account {
 
   transferTo(anotherAccount, amount) {
     if (anotherAccount instanceof Account) {
-
       if (amount <= this.#balance) {
         this.debitAmount(amount);
         anotherAccount.creditAmount(amount);
@@ -151,7 +151,9 @@ class Account {
       if (amount <= this.#balance) {
         this.debitAmount(amount);
         foundAccount.creditAmount(amount);
-        return `Pix de R$${amount},00 realizado com sucesso! Seu saldo atual é de R$${this.#balance},00`;
+        return `Pix de R$${amount},00 realizado com sucesso! Seu saldo atual é de R$${
+          this.#balance
+        },00`;
       } else {
         return `Saldo indisponível`;
       }
@@ -164,7 +166,12 @@ class Account {
     const dailyLimitStandard = 1000;
     const dailyLimitGold = 5000;
 
-    if((typeOfAccount === "Standard" && (this.dailyTransactionUsed + amount ) > dailyLimitStandard ) || (typeOfAccount === "Gold" && (this.dailyTransactionUsed + amount) > dailyLimitGold)) {
+    if (
+      (typeOfAccount === "Standard" &&
+        this.dailyTransactionUsed + amount > dailyLimitStandard) ||
+      (typeOfAccount === "Gold" &&
+        this.dailyTransactionUsed + amount > dailyLimitGold)
+    ) {
       return `Limite diário atingido.`;
     } else {
       return true;
@@ -172,4 +179,4 @@ class Account {
   }
 }
 
-module.exports = {Account}
+module.exports = { Account };

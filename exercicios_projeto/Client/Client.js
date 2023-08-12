@@ -30,8 +30,8 @@ class Client {
   }
 
   set income(newAmount) {
-    return this.#income = newAmount;
+    return (this.#income = newAmount);
   }
 }
 
-module.exports = {Client}
+module.exports = { Client };
