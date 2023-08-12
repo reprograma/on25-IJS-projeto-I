@@ -1,5 +1,5 @@
 const GoldAccount = require("../GoldAccount/GoldAccount");
-const PremiumAccount = require("../PremiumAccount/PremiunAccount");
+const PremiumAccount = require("../PremiumAccount/PremiumAccount");
 const StandardAccount = require("../StandardAccount/StandardAccount");
 
 class Client {
