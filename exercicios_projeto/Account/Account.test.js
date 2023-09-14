@@ -5,7 +5,6 @@ describe("Teste da classe Account", () => {
     const account = new Account();
     expect(account instanceof Account).toBe(true);
     
-    // remover da lista de instâncias
     account.destroy()
 
   });
@@ -50,7 +49,6 @@ describe("Teste da classe Account", () => {
 
   // caso positivo -> dados válidos
   test("criar conta de com dados válidos", () => {
-    // numero conta (5 digitos) agencia (4 digitos) e saldo (numero positivo)
     const account = new Account();
     expect(account.createAccount("12345", "0001", 500)).toBe("Conta criada com sucesso");
     expect(account.getBalance()).toBe(500);
@@ -78,33 +76,32 @@ describe("Teste da classe Account", () => {
 
   });
 
-  // criar chave pix email
+
   test("criar chave pix email com sucesso", () => {
     const account = new Account();
     expect(account.createPixKey("teste@reprograma.com.br", "EMAIL")).toBe("Chave pix email criada com sucesso");
     expect(account.pixKeys.email).toBe("teste@reprograma.com.br");
     
-    // remover da lista de instâncias
+  
     account.destroy()
 
   });
 
-  // criar chave pix telefone
   test("criar chave pix telefone com sucesso", () => {
     const account = new Account();
     expect(account.createPixKey("11912345678", "TELEFONE")).toBe("Chave pix telefone criada com sucesso");
     
-    // remover da lista de instâncias
+
     account.destroy()
 
   });
 
-  // criar chave pix invalido
+
   test("criar chave pix cpf inválido", () => {
     const account = new Account();
     expect(() => account.createPixKey("3776", "CPF")).toThrow("Erro, cpf inválido");
     
-    // remover da lista de instâncias
+ 
     account.destroy()
 
   });
@@ -117,7 +114,7 @@ describe("Teste da classe Account", () => {
     account.withdraw(100)
     expect(account.getBalance()).toBe(400);
     
-    // remover da lista de instâncias
+
     account.destroy()
 
   })
@@ -129,8 +126,7 @@ describe("Teste da classe Account", () => {
 
     expect(() => account.withdraw(-100)).toThrow("Valor inválido de saque")
     expect(account.getBalance()).toBe(500);
-    
-    // remover da lista de instâncias
+
     account.destroy()
   })
 
@@ -142,7 +138,7 @@ describe("Teste da classe Account", () => {
     expect(() => account.withdraw('-100')).toThrow("Valor inválido de saque")
     expect(account.getBalance()).toBe(500);
 
-    // remover da lista de instâncias
+ 
     account.destroy()
   })
 
@@ -150,17 +146,17 @@ describe("Teste da classe Account", () => {
     const fromAccount = new Account();
     const toAccount = new Account();
 
-    // criar as contas
+  
     fromAccount.createAccount('12346', '0001', 1000)
     toAccount.createAccount('12345', '0001', 500)
 
-    //criar chave pix para a conta de destino
+    
     toAccount.createPixKey("teste@reprograma.com.br", "EMAIL")
     expect(fromAccount.pix(10, 'teste@reprograma.com.br', 'email')).toBe("Pix feito com sucesso")
     expect(toAccount.getBalance()).toBe(510);
     expect(fromAccount.getBalance()).toBe(990);
     
-    // remover da lista de instâncias
+   
     fromAccount.destroy();
     toAccount.destroy();
   })
@@ -169,17 +165,17 @@ describe("Teste da classe Account", () => {
     const fromAccount = new Account();
     const toAccount = new Account();
 
-    // criar as contas
+   
     fromAccount.createAccount('12346', '0001', 1000)
     toAccount.createAccount('12345', '0001', 500)
 
-    //criar chave pix para a conta de destino
+  
     toAccount.createPixKey("teste@reprograma.com.br", "EMAIL")
     expect(() => fromAccount.pix(10, 'teste@admin.com.br', 'email')).toThrow("Chave pix não encontrada")
     expect(toAccount.getBalance()).toBe(500);
     expect(fromAccount.getBalance()).toBe(1000);
 
-    // remover da lista de instâncias
+  
     fromAccount.destroy();
     toAccount.destroy();
   })
@@ -188,17 +184,17 @@ describe("Teste da classe Account", () => {
     const fromAccount = new Account();
     const toAccount = new Account();
 
-    // criar as contas
+   
     fromAccount.createAccount('12346', '0001', 200)
     toAccount.createAccount('12345', '0001', 500)
 
-    //criar chave pix para a conta de destino
+  
     toAccount.createPixKey("teste@reprograma.com.br", "EMAIL")
     expect(() => fromAccount.pix(300, 'teste@reprograma.com.br', 'email')).toThrow("Você não possui saldo suficiente")
     expect(toAccount.getBalance()).toBe(500);
     expect(fromAccount.getBalance()).toBe(200);
 
-    // remover da lista de instâncias
+ 
     fromAccount.destroy();
     toAccount.destroy();
   })
@@ -207,7 +203,7 @@ describe("Teste da classe Account", () => {
     const fromAccount = new Account();
     const toAccount = new Account();
 
-    // criar as contas
+ 
     fromAccount.createAccount('12346', '0001', 1000)
     toAccount.createAccount('12345', '0001', 500)
 
@@ -217,7 +213,7 @@ describe("Teste da classe Account", () => {
     expect(toAccount.getBalance()).toBe(500);
     expect(fromAccount.getBalance()).toBe(1000);
     
-    // remover da lista de instâncias
+
     fromAccount.destroy();
     toAccount.destroy();
   })
@@ -226,7 +222,7 @@ describe("Teste da classe Account", () => {
     const fromAccount = new Account();
     const toAccount = new Account();
 
-    // criar as contas
+
     fromAccount.createAccount('12346', '0001', 300)
     toAccount.createAccount('12345', '0001', 500)
 
@@ -234,7 +230,7 @@ describe("Teste da classe Account", () => {
     expect(fromAccount.getBalance()).toBe(290);
     expect(toAccount.getBalance()).toBe(510);
     
-    // remover da lista de instâncias
+
     fromAccount.destroy();
     toAccount.destroy();
   })
@@ -243,7 +239,7 @@ describe("Teste da classe Account", () => {
     const fromAccount = new Account();
     const toAccount = new Account();
 
-    // criar as contas
+
     fromAccount.createAccount('12346', '0001', 1000)
     toAccount.createAccount('12345', '0001', 500)
 
@@ -251,7 +247,7 @@ describe("Teste da classe Account", () => {
     expect(toAccount.getBalance()).toBe(500);
     expect(fromAccount.getBalance()).toBe(1000);
 
-    // remover da lista de instâncias
+
     fromAccount.destroy();
     toAccount.destroy();
   })
@@ -260,7 +256,7 @@ describe("Teste da classe Account", () => {
     const fromAccount = new Account();
     const toAccount = new Account();
 
-    // criar as contas
+
     fromAccount.createAccount('12346', '0001', 200)
     toAccount.createAccount('12345', '0001', 500)
 
