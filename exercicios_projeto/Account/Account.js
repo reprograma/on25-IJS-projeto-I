@@ -1,3 +1,4 @@
+
 const { Client } = require('./Client');
 
 class Account {
@@ -110,3 +111,46 @@ class Account {
 }
 
 module.exports = {Account };
+
+    if (!validAccount) {
+      throw new Error("Conta não encontrada")
+    }
+
+    if (value < 0) {
+      throw new Error("Valor inválido de transferência");
+    }
+
+    if (this.balance - value > 0) {
+      validAccount.setBalance(value);
+      this.balance -= value;
+      return "Transferência feita com sucesso";
+    } else {
+      throw new Error("Você não possui saldo suficiente");
+    }
+  }
+
+  pix(value, pixKey, keyType) {
+    const validAccount = Account.all.find(account => {
+      return account.pixKeys[keyType] === pixKey;
+    })
+
+    if (!validAccount) {
+      throw new Error("Chave pix não encontrada")
+    }
+
+    if (value < 0) {
+      throw new Error("Valor inválido de pix");
+    }
+
+    if (this.balance - value > 0) {
+      this.balance -= value;
+      validAccount.setBalance(value);
+      return "Pix feito com sucesso";
+    } else {
+      throw new Error("Você não possui saldo suficiente");
+    }
+  }
+}
+
+export default Account;
+
